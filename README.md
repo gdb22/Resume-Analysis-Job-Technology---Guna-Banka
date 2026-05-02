@@ -109,3 +109,6 @@ Users can paste a cover letter and receive:
 - The project intentionally includes only the three required tools.
 - The interactive behavior is frontend-only and does not require a backend.
 - The automated tests use only Python standard library modules.
+
+## LinkedIn (Resume included)
+- https://www.linkedin.com/in/guna-banka-785179269/
