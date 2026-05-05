@@ -1149,26 +1149,84 @@ Helped run events for the business club"></textarea>
       menuButton.setAttribute("aria-expanded", String(isOpen));
     }
 
+    const ACTION_VERB_PATTERN = /\b(led|built|created|analyzed|managed|coordinated|designed|improved|launched|developed|organized|presented|delivered|supported|implemented|streamlined|researched|produced|owned|drove)\b/i;
+    const METRIC_PATTERN = /\b\d+(?:[.,]\d+)?\s?(?:%|x|\+|hours?|days?|weeks?|months?|years?|users?|clients?|projects?|events?|students?|teams?)?\b/i;
+    const WEAK_COVER_PHRASES = [
+      "hardworking",
+      "passionate",
+      "quick learner",
+      "team player",
+      "detail-oriented",
+      "excited to apply",
+      "works well under pressure"
+    ];
+
+    function uniqueValues(values) {
+      return [...new Set(values.filter(Boolean))];
+    }
+
+    function getWordCount(value) {
+      return value.trim().split(/\s+/).filter(Boolean).length;
+    }
+
+    function extractSentences(value) {
+      return value
+        .replace(/\s+/g, " ")
+        .split(/(?<=[.!?])\s+/)
+        .map((sentence) => sentence.trim())
+        .filter(Boolean);
+    }
+
+    function findWeakPhrases(value, phrases) {
+      const lowered = value.toLowerCase();
+      return phrases.filter((phrase) => lowered.includes(phrase));
+    }
+
+    function extractRoleHint(text) {
+      const normalized = text.replace(/\s+/g, " ").trim();
+      if (!normalized) return "the role";
+      if (normalized.length <= 70) return normalized;
+
+      const titleMatch = normalized.match(/([A-Z][A-Za-z/&-]+(?:\s+[A-Z][A-Za-z/&-]+){0,4}\s+(?:Intern|Analyst|Assistant|Coordinator|Engineer|Specialist|Associate|Manager|Developer|Consultant))/);
+      if (titleMatch) return titleMatch[1];
+
+      const opening = normalized.split(/[.:;\n]/)[0].trim();
+      return opening.split(/\s+/).slice(0, 8).join(" ");
+    }
+
     function scoreText(value, maxScore) {
-      const hasMetric = /\b\d+[%+]?\b/.test(value);
-      const hasActionVerb = /\b(led|built|created|analyzed|managed|coordinated|designed|improved|launched|developed|organized|presented|delivered|supported)\b/i.test(value);
-      const wordCount = value.trim().split(/\s+/).filter(Boolean).length;
+      const hasMetric = METRIC_PATTERN.test(value);
+      const hasActionVerb = ACTION_VERB_PATTERN.test(value);
+      const hasToolOrContext = /\b(sql|excel|python|dashboard|campaign|client|stakeholder|project|research|event|report|team)\b/i.test(value);
+      const wordCount = getWordCount(value);
       let score = Math.min(maxScore, 4);
       if (hasMetric) score += 2;
       if (hasActionVerb) score += 2;
+      if (hasToolOrContext) score += 1;
       if (wordCount > 12) score += 1;
-      if (wordCount > 24) score += 1;
       return Math.min(maxScore, score);
+    }
+
+    function analyzeResumeBullet(bullet) {
+      return {
+        bullet,
+        hasMetric: METRIC_PATTERN.test(bullet),
+        hasActionVerb: ACTION_VERB_PATTERN.test(bullet),
+        hasContext: /\b(team|club|client|dashboard|campaign|project|event|report|research|student|users?)\b/i.test(bullet),
+        wordCount: getWordCount(bullet)
+      };
     }
 
     function rewriteBullet(bullet, role) {
       const trimmed = bullet.replace(/[.]+$/, "").trim();
       if (!trimmed) return "";
-      const hasMetric = /\b\d+[%+]?\b/.test(trimmed);
+      const hasMetric = METRIC_PATTERN.test(trimmed);
+      const hasActionVerb = ACTION_VERB_PATTERN.test(trimmed);
       const cleaned = sentenceCase(trimmed);
       const roleText = role ? ` for ${role}` : "";
-      if (hasMetric) return `${cleaned}, highlighting clear ownership${roleText} and measurable impact.`;
-      return `${cleaned} by clarifying scope${roleText}, naming the action taken, and adding a measurable result where possible.`;
+      if (hasMetric && hasActionVerb) return `${cleaned}${roleText}, with the result placed at the end so the impact lands more clearly.`;
+      if (hasActionVerb) return `${cleaned}${roleText}, then add one metric, scope detail, or before-and-after result to prove the outcome.`;
+      return `Rewrite this bullet${roleText} as action + task + result so it shows what you owned and why it mattered.`;
     }
 
     function extractKeywords(text) {
@@ -1180,9 +1238,76 @@ Helped run events for the business club"></textarea>
         ["Analytics", /\b(data|analytics|analysis|dashboard)\w*/i],
         ["Project coordination", /\b(project|coordinate|timeline|organize)\w*/i],
         ["Research", /\bresearch\b/i],
-        ["Writing", /\bwrite|writing|copy\b/i]
+        ["Writing", /\bwrite|writing|copy\b/i],
+        ["Presentation", /\bpresent|presentation|slides?\b/i],
+        ["Customer support", /\bcustomer|client support|service\b/i],
+        ["Leadership", /\blead|leadership|mentor|supervis\w*\b/i]
       ];
-      return patterns.filter(([, pattern]) => pattern.test(text)).map(([label]) => label);
+      return uniqueValues(patterns.filter(([, pattern]) => pattern.test(text)).map(([label]) => label));
+    }
+
+    function buildResumeFixList(analyses) {
+      const fixes = [];
+
+      if (analyses.some((item) => !item.hasActionVerb)) {
+        fixes.push("Start the weakest bullets with stronger action verbs so ownership is immediately clear.");
+      }
+      if (analyses.some((item) => !item.hasMetric)) {
+        fixes.push("Add one metric, scope detail, or concrete result anywhere the bullet still sounds vague.");
+      }
+      if (analyses.some((item) => item.wordCount < 10)) {
+        fixes.push("Expand the shortest bullets so they show the task, the setting, and the outcome instead of only the activity.");
+      }
+      if (analyses.some((item) => !item.hasContext)) {
+        fixes.push("Name the team, project, audience, or tool when possible so each bullet feels more credible.");
+      }
+
+      return fixes.slice(0, 3);
+    }
+
+    function buildResumeStrengths(analyses) {
+      const strengths = [];
+
+      if (analyses.some((item) => item.hasActionVerb)) {
+        strengths.push("You already have bullets that use action-oriented language instead of passive phrasing.");
+      }
+      if (analyses.some((item) => item.hasMetric)) {
+        strengths.push("There is already some measurable evidence, which makes the resume feel more credible.");
+      }
+      if (analyses.filter((item) => item.wordCount >= 12).length >= 2) {
+        strengths.push("Several bullets have enough detail to be shaped into stronger impact statements.");
+      }
+
+      return strengths.length ? strengths : ["You have enough content here to build stronger bullets with clearer evidence."];
+    }
+
+    function extractResponsibilityHighlights(text) {
+      return uniqueValues(
+        extractSentences(text)
+          .filter((sentence) => getWordCount(sentence) >= 6)
+          .slice(0, 3)
+          .map((sentence) => sentence.replace(/^[•\-\s]+/, ""))
+      );
+    }
+
+    function buildProofSignals(skills) {
+      const mappings = {
+        SQL: "Show one project where you queried, cleaned, or organized data instead of only saying you know SQL.",
+        Excel: "Point to spreadsheet work, reporting, or cleanup tasks that prove practical Excel use.",
+        Python: "Mention scripting, automation, or analysis work that shows technical problem-solving.",
+        Communication: "Use one example where you explained work clearly to classmates, teammates, or stakeholders.",
+        Analytics: "Show how you interpreted data, built a dashboard, or turned information into a decision.",
+        "Project coordination": "Give evidence that you managed deadlines, organized tasks, or kept a project moving.",
+        Research: "Mention research or synthesis work that led to a useful recommendation, summary, or deliverable.",
+        Writing: "Show a report, summary, or content example that proves you can communicate clearly in writing.",
+        Presentation: "Point to presenting findings, leading a meeting, or building slides for an audience.",
+        "Customer support": "Show experience helping people, solving issues, or communicating clearly under pressure.",
+        Leadership: "Highlight a moment where you led a team, owned a deliverable, or guided work forward."
+      };
+
+      return (skills.length ? skills : ["Communication", "Evidence", "Role fit"])
+        .slice(0, 4)
+        .map((skill) => mappings[skill] || `Add one specific example that proves ${skill.toLowerCase()} in practice.`);
     }
 
     function buildPrepPlan(skills, profile) {
@@ -1276,18 +1401,20 @@ Helped run events for the business club"></textarea>
         resetOutput(resumeOutput, "Paste your resume to generate feedback.");
         return;
       }
+      const analyses = bullets.map((bullet) => analyzeResumeBullet(bullet));
       const scoreBase = bullets.length ? bullets.map((bullet) => scoreText(bullet, 10)).reduce((sum, value) => sum + value, 0) / bullets.length : 5;
       const overallScore = Math.max(5, Math.min(10, Math.round(scoreBase * 10) / 10));
-      const rewrites = bullets.slice(0, 3).map((bullet) => rewriteBullet(bullet, ""));
-      const fixList = [
-        "Clarify the strongest responsibilities in each bullet.",
-        "Replace generic verbs with clear ownership language.",
-        "Add one metric, scope detail, or result to each major bullet."
-      ];
+      const rewrites = bullets.slice(0, 3).map((bullet) => rewriteBullet(bullet, "the target role"));
+      const strengths = buildResumeStrengths(analyses);
+      const fixList = buildResumeFixList(analyses);
       renderOutput(resumeOutput, `
         <div class="output-block">
           <div class="output-label">Resume score</div>
           <span class="score-chip">${overallScore}/10 clarity + impact</span>
+        </div>
+        <div class="output-block">
+          <div class="output-label">What is already working</div>
+          <ul>${strengths.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
         </div>
         <div class="output-block">
           <div class="output-label">Suggested rewrites</div>
@@ -1312,16 +1439,22 @@ Helped run events for the business club"></textarea>
         return;
       }
       const skills = extractKeywords(description);
-      const roleName = description;
+      const roleName = extractRoleHint(description);
+      const responsibilities = extractResponsibilityHighlights(description);
       const summary = skills.length
-        ? `${roleName} usually emphasizes ${skills.slice(0, 3).join(", ").toLowerCase()} and clear proof that you can use those skills well.`
-        : `${roleName} usually expects relevant experience, clear communication, and strong evidence of role fit.`;
-      const gapSummary = `Focus on showing why you fit the ${roleName} role through projects, coursework, or past work.`;
+        ? `This role is really asking for someone who can show ${skills.slice(0, 3).join(", ").toLowerCase()} with believable evidence, not just broad interest.`
+        : `This posting is looking for someone who can show relevant experience, communicate clearly, and prove they can handle the core work.`;
+      const gapSummary = `Focus on matching your projects, coursework, or work examples to the strongest signals in ${roleName}.`;
+      const proofSignals = buildProofSignals(skills);
       const prepPlan = buildPrepPlan(skills, roleName);
       renderOutput(jobOutput, `
         <div class="output-block">
           <div class="output-label">Role highlights</div>
           <ul>${(skills.length ? skills : ["Role fit", "Evidence", "Clear communication"]).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="output-block">
+          <div class="output-label">What the employer is really asking for</div>
+          <ul>${(responsibilities.length ? responsibilities : [summary]).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
         </div>
         <div class="output-block">
           <div class="output-label">Plain-language summary</div>
@@ -1330,6 +1463,10 @@ Helped run events for the business club"></textarea>
         <div class="output-block">
           <div class="output-label">Gap summary</div>
           <p>${escapeHtml(gapSummary)}</p>
+        </div>
+        <div class="output-block">
+          <div class="output-label">Proof signals to show</div>
+          <ul>${proofSignals.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
         </div>
         <div class="output-block">
           <div class="output-label">2-week action plan</div>
@@ -1349,21 +1486,43 @@ Helped run events for the business club"></textarea>
         resetOutput(coverOutput, "Paste your cover letter to generate feedback.");
         return;
       }
-      const relevanceScore = Math.max(5.5, Math.min(9.6, scoreText(draft, 10) + 0.4));
-      const revision = `${sentenceCase(draft.replace(/\s+/g, " ").trim())} This version works best when it replaces broad claims with specific examples, clearer outcomes, and direct language.`;
-      const notes = [
-        "Add one concrete example to avoid sounding generic.",
-        "Replace broad phrases with clearer role-specific language.",
-        "Tighten sentences so the strongest points appear earlier."
-      ];
+      const normalizedDraft = draft.replace(/\s+/g, " ").trim();
+      const relevanceScore = Math.max(5.5, Math.min(9.6, scoreText(normalizedDraft, 10) + 0.2));
+      const weakPhrases = findWeakPhrases(normalizedDraft, WEAK_COVER_PHRASES);
+      const evidenceSignals = extractKeywords(normalizedDraft);
+      const notes = [];
+
+      if (weakPhrases.length) {
+        notes.push(`Replace generic phrases like ${weakPhrases.slice(0, 2).join(" and ")} with one concrete example from your experience.`);
+      }
+      if (!METRIC_PATTERN.test(normalizedDraft)) {
+        notes.push("Add one result, outcome, or concrete responsibility so the letter sounds grounded instead of broad.");
+      }
+      if (!ACTION_VERB_PATTERN.test(normalizedDraft)) {
+        notes.push("Use stronger action language so the reader can see what you actually did, not just what you value.");
+      }
+      if (evidenceSignals.length === 0) {
+        notes.push("Name at least one skill, project, tool, or task that directly supports your fit for the role.");
+      }
+
+      const strongestFocus = evidenceSignals.length ? evidenceSignals.slice(0, 2).join(" and ").toLowerCase() : "communication and problem-solving";
+      const revision = `I am interested in this role because it aligns with the ${strongestFocus} work I have already practiced through projects, coursework, and student experience. I would strengthen this application by showing one specific example of what I contributed, how I approached the work, and what result came from it.`;
       renderOutput(coverOutput, `
         <div class="output-block">
           <div class="output-label">Relevance score</div>
           <span class="score-chip">${relevanceScore.toFixed(1)}/10 grounded alignment</span>
         </div>
         <div class="output-block">
+          <div class="output-label">What is missing</div>
+          <ul>${(notes.length ? notes : ["The draft already has a useful base, but it gets stronger if you add one concrete example and a clearer result."]).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="output-block">
           <div class="output-label">Revision notes</div>
-          <ul>${notes.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+          <ul>
+            <li>Lead with role fit, not just enthusiasm.</li>
+            <li>Use one specific example to prove the claim.</li>
+            <li>End by showing the value you can bring to the team.</li>
+          </ul>
         </div>
         <div class="output-block">
           <div class="output-label">Rewritten paragraph</div>
