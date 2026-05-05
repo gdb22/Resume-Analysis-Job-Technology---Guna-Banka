@@ -5,19 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Student Career AI Tools</title>
   <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@700;800&display=swap");
+
     :root {
-      --bg: #f4f1eb;
-      --surface: rgba(255, 255, 255, 0.72);
-      --surface-solid: #fbfaf7;
-      --text: #151515;
-      --muted: #5c5b57;
-      --brand: #20498a;
+      --bg: #f6f1e8;
+      --surface: rgba(255, 252, 247, 0.84);
+      --surface-solid: #fcf8f2;
+      --text: #121212;
+      --muted: #686159;
+      --brand: #274c90;
       --brand-2: #0f1720;
-      --ring: rgba(32, 73, 138, 0.24);
-      --border: rgba(21, 21, 21, 0.1);
-      --border-strong: rgba(21, 21, 21, 0.16);
-      --shadow: 0 24px 60px rgba(16, 24, 40, 0.08);
-      --radius: 22px;
+      --ring: rgba(39, 76, 144, 0.18);
+      --border: rgba(18, 18, 18, 0.08);
+      --border-strong: rgba(18, 18, 18, 0.14);
+      --shadow: 0 24px 60px rgba(15, 23, 32, 0.07);
+      --shadow-soft: 0 14px 34px rgba(15, 23, 32, 0.045);
+      --radius: 24px;
       --max: 1120px;
       --reveal-distance-y: 28px;
       --reveal-scale-start: 0.96;
@@ -35,14 +38,15 @@
       margin: 0;
       min-height: 100vh;
       background:
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0)) 0 0 / 100% 260px no-repeat,
-        radial-gradient(circle at top left, rgba(32, 73, 138, 0.06), transparent 28%),
-        radial-gradient(circle at 82% 12%, rgba(15, 23, 32, 0.05), transparent 24%),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0)) 0 0 / 100% 280px no-repeat,
+        radial-gradient(circle at top left, rgba(39, 76, 144, 0.065), transparent 30%),
+        radial-gradient(circle at 82% 12%, rgba(15, 23, 32, 0.04), transparent 24%),
         var(--bg);
       color: var(--text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.6;
+      line-height: 1.65;
       padding: 0 0 56px;
+      text-rendering: optimizeLegibility;
     }
 
     a {
@@ -65,8 +69,8 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      background: rgba(244, 241, 235, 0.84);
-      backdrop-filter: blur(18px);
+      background: rgba(246, 241, 232, 0.82);
+      backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(21, 21, 21, 0.07);
     }
 
@@ -110,9 +114,9 @@
 
     .site-title {
       font-family: "Manrope", Inter, ui-sans-serif, system-ui, sans-serif;
-      font-size: 1rem;
+      font-size: 0.96rem;
       font-weight: 800;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
     }
 
     .menu-btn {
@@ -137,8 +141,8 @@
     .nav-links a {
       position: relative;
       color: var(--muted);
-      font-size: 0.94rem;
-      font-weight: 600;
+      font-size: 0.92rem;
+      font-weight: 700;
     }
 
     .nav-links a::after {
@@ -165,13 +169,13 @@
     }
 
     .hero {
-      padding: 92px 0 42px;
+      padding: 54px 0 18px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.28fr) minmax(320px, 0.72fr);
-      gap: 36px;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
       align-items: start;
     }
 
@@ -221,17 +225,17 @@
 
     h1 {
       max-width: 12ch;
-      margin-bottom: 18px;
-      font-size: clamp(2.9rem, 5vw, 5.2rem);
-      line-height: 1.04;
-      letter-spacing: -0.045em;
+      margin-bottom: 14px;
+      font-size: clamp(2.55rem, 4.9vw, 4.5rem);
+      line-height: 1.01;
+      letter-spacing: -0.055em;
     }
 
     .lead {
       max-width: 60ch;
       margin: 0;
       color: var(--muted);
-      font-size: 1.08rem;
+      font-size: 0.98rem;
       line-height: 1.72;
     }
 
@@ -239,7 +243,7 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
-      margin-top: 24px;
+      margin-top: 18px;
     }
 
     .hero-meta-item,
@@ -252,7 +256,7 @@
       border-radius: var(--radius);
       background: var(--surface);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(22px);
     }
 
     .project,
@@ -268,7 +272,7 @@
     .hero-meta-item:hover {
       transform: translateY(-3px);
       border-color: var(--border-strong);
-      box-shadow: 0 28px 70px rgba(16, 24, 40, 0.1);
+      box-shadow: 0 28px 70px rgba(15, 23, 32, 0.09);
     }
 
     .hero-meta-item,
@@ -298,19 +302,19 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 20px;
+      margin-top: 10px;
     }
 
     .pill,
     .tag {
       display: inline-flex;
       align-items: center;
-      padding: 9px 13px;
+      padding: 9px 14px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.68);
+      background: rgba(255, 255, 255, 0.78);
       color: var(--brand-2);
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       font-weight: 600;
     }
 
@@ -318,7 +322,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 22px;
+      margin-top: 14px;
     }
 
     .btn {
@@ -328,7 +332,8 @@
       border: 0;
       border-radius: 999px;
       cursor: pointer;
-      padding: 11px 18px;
+      padding: 11px 17px;
+      font-size: 0.92rem;
       font-weight: 700;
       transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
@@ -340,82 +345,77 @@
     .btn-primary {
       background: var(--brand);
       color: #fff;
-      box-shadow: 0 16px 30px rgba(32, 73, 138, 0.18);
+      box-shadow: 0 14px 28px rgba(39, 76, 144, 0.18);
     }
 
     .btn-secondary {
-      background: rgba(255, 255, 255, 0.72);
+      background: rgba(255, 255, 255, 0.8);
       color: var(--brand-2);
       border: 1px solid var(--border-strong);
     }
 
-    .featured-strip-wrap {
-      margin-top: 28px;
-    }
-
-    .featured-strip {
-      border-top: 1px solid var(--border-strong);
-      padding-top: 24px;
-    }
-
-    .featured-strip-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 18px;
-    }
-
-    .featured-strip-head h2 {
-      max-width: 18ch;
-      margin: 0;
-      font-size: clamp(1.35rem, 2vw, 1.7rem);
-    }
-
-    .featured-strip-grid {
+    .tool-shortcuts {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
+      gap: 8px;
+      margin-top: 10px;
     }
 
     .featured-item {
-      display: grid;
-      gap: 8px;
-      min-height: 100%;
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.5);
-      box-shadow: 0 12px 30px rgba(16, 24, 40, 0.05);
-      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 8px 10px;
+      border: 1px solid rgba(18, 18, 18, 0.07);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.62);
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      box-shadow: none;
+      text-align: center;
     }
 
     .featured-item:hover {
-      transform: translateY(-3px);
       border-color: var(--border-strong);
-      background: rgba(255, 255, 255, 0.74);
-      box-shadow: 0 18px 36px rgba(16, 24, 40, 0.08);
-    }
-
-    .featured-item strong {
+      background: rgba(255, 255, 255, 0.82);
       color: var(--text);
-      font-family: "Manrope", sans-serif;
-      font-size: 1rem;
-      letter-spacing: -0.02em;
     }
 
-    .featured-item span:last-child {
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.55;
+    .workflow-grid,
+    .assistant-grid,
+    .assistant-prompt-row {
+      display: grid;
+      gap: 16px;
     }
 
-    .featured-label {
-      color: var(--brand);
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+    .workflow-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 20px;
+    }
+
+    .assistant-grid {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      margin-top: 20px;
+    }
+
+    .assistant-prompt-row {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-bottom: 14px;
+    }
+
+    .assistant-prompt {
+      width: 100%;
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .assistant-input-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: end;
     }
 
     .hero-card ul,
@@ -466,7 +466,7 @@
     }
 
     .section {
-      padding-top: 32px;
+      padding-top: 18px;
     }
 
     .section-head {
@@ -475,7 +475,7 @@
       justify-content: space-between;
       gap: 14px;
       align-items: end;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
     }
 
     .section-head-inline {
@@ -483,7 +483,43 @@
       align-items: end;
       justify-content: space-between;
       gap: 18px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
+    }
+
+    .path-grid,
+    .cta-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .path-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .cta-grid {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      align-items: start;
+    }
+
+    .path-step {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step-label {
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .footer-links-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+      justify-content: center;
     }
 
     .mini-label {
@@ -496,7 +532,7 @@
     }
 
     .section-title {
-      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      font-size: clamp(1.55rem, 2.6vw, 2.2rem);
       letter-spacing: -0.03em;
     }
 
@@ -512,7 +548,7 @@
 
     .projects {
       display: grid;
-      gap: 24px;
+      gap: 20px;
     }
 
     .reveal {
@@ -532,7 +568,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
       align-items: start;
     }
 
@@ -555,7 +591,7 @@
     }
 
     .project-title h3 {
-      font-size: clamp(1.45rem, 2.3vw, 2rem);
+      font-size: clamp(1.34rem, 2vw, 1.8rem);
       letter-spacing: -0.03em;
     }
 
@@ -571,8 +607,8 @@
     .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin: 18px 0 22px;
+      gap: 8px;
+      margin: 14px 0 18px;
     }
 
     .simple-list {
@@ -582,7 +618,7 @@
     }
 
     .simple-list li + li {
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
     .grid,
@@ -597,7 +633,7 @@
 
     .demo-grid {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      margin-top: 22px;
+      margin-top: 18px;
     }
 
     .example {
@@ -632,7 +668,7 @@
     .field {
       display: grid;
       gap: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .field label {
@@ -709,7 +745,12 @@
     @media (max-width: 920px) {
       .hero-grid,
       .demo-grid,
-      .hero-meta {
+      .hero-meta,
+      .workflow-grid,
+      .assistant-grid,
+      .assistant-prompt-row,
+      .path-grid,
+      .cta-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -773,17 +814,23 @@
       .card {
         padding: 18px;
       }
+
+      .assistant-input-row {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 960px) {
-      .featured-strip-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .section-head-inline,
-      .featured-strip-head {
+      .tool-shortcuts,
+      .section-head-inline {
         align-items: start;
         flex-direction: column;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .tool-shortcuts {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -796,9 +843,9 @@
       <a class="site-title" href="#top">Resume Analysis + Job Technology</a>
       <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">Menu</button>
       <nav class="nav-links" id="site-nav" aria-label="Main navigation">
-        <a href="#resume-feedback" aria-current="page">Resume Tool</a>
-        <a href="#job-translator">Job Translator</a>
-        <a href="#cover-letter-feedback">Cover Letter Tool</a>
+        <a href="#resume-feedback" aria-current="page">Resume</a>
+        <a href="#job-translator">Job Description</a>
+        <a href="#cover-letter-feedback">Cover Letter</a>
       </nav>
     </div>
   </header>
@@ -809,79 +856,20 @@
       <div class="container hero-grid">
         <div class="hero-loaded">
           <p class="kicker hero-layer" style="--hero-layer-delay: 0ms;">AI Product Engineer · Student Career Tools</p>
-          <p class="hero-intro hero-layer" style="--hero-layer-delay: 40ms;">Building practical AI products for student career readiness.</p>
-          <h1 class="hero-layer" style="--hero-layer-delay: 80ms;">I build AI tools that help students improve resumes, understand job descriptions, and strengthen cover letters.</h1>
-          <p class="lead hero-layer" style="--hero-layer-delay: 160ms;">Three focused tools, one simple goal: help students present themselves more clearly for the job market.</p>
-          <div class="hero-meta" aria-label="Portfolio summary">
-            <div class="hero-meta-item hero-layer" style="--hero-layer-delay: 220ms;">
-              <span class="hero-meta-value">3</span>
-              <span class="hero-meta-label">student-focused tools</span>
-            </div>
-            <div class="hero-meta-item hero-layer" style="--hero-layer-delay: 280ms;">
-              <span class="hero-meta-value">LLM</span>
-              <span class="hero-meta-label">workflow design</span>
-            </div>
-            <div class="hero-meta-item hero-layer" style="--hero-layer-delay: 340ms;">
-              <span class="hero-meta-value">Interactive</span>
-              <span class="hero-meta-label">single-input demos</span>
-            </div>
+          <p class="hero-intro hero-layer" style="--hero-layer-delay: 40ms;">Three focused tools for student job applications.</p>
+          <h1 class="hero-layer" style="--hero-layer-delay: 80ms;">Resume, job description, and cover letter tools.</h1>
+          <p class="lead hero-layer" style="--hero-layer-delay: 160ms;">Choose a tool below and try the interactive demo.</p>
+          <div class="btn-row hero-layer" style="--hero-layer-delay: 220ms;">
+            <a class="btn btn-primary" href="#resume-feedback">Go to the tools</a>
+            <a class="btn btn-secondary" href="#job-translator">Jump to job description tool</a>
           </div>
-          <div class="pill-row hero-layer" aria-label="Core skills and tools" style="--hero-layer-delay: 400ms;">
-            <span class="pill">OpenAI concepts</span>
-            <span class="pill">Gemini concept</span>
-            <span class="pill">Prompt iteration</span>
-            <span class="pill">Deployment ready</span>
-          </div>
-          <div class="btn-row hero-layer" style="--hero-layer-delay: 460ms;">
-            <a class="btn btn-primary" href="#resume-feedback">Try the demos</a>
-            <a class="btn btn-secondary" href="#cover-letter-feedback">Jump to cover letters</a>
+          <div class="tool-shortcuts hero-layer" style="--hero-layer-delay: 260ms;" aria-label="Tool shortcuts">
+            <a class="featured-item" href="#resume-feedback">AI Resume Feedback Tool</a>
+            <a class="featured-item" href="#job-translator">AI Job Description Translator</a>
+            <a class="featured-item" href="#cover-letter-feedback">AI Cover Letter Feedback</a>
           </div>
         </div>
 
-        <aside class="hero-card hero-layer" aria-label="Who the tools are for" style="--hero-layer-delay: 180ms;">
-          <div class="hero-identity">
-            <p class="hero-name">Resume Analysis + Job Technology</p>
-            <p class="hero-role">Three interactive AI career tools</p>
-          </div>
-          <p class="kicker">Who this is for</p>
-          <h2>Student career support with input-driven tools</h2>
-          <ul>
-            <li>Students can paste their own resume bullets, job postings, and cover letter drafts.</li>
-            <li>Each demo turns raw input into structured guidance on the page.</li>
-            <li>The styling follows the original portfolio’s warm background, blue brand, and dark accent palette.</li>
-          </ul>
-          <div class="hero-card-footer">
-            <a class="project-link" href="#resume-feedback">See selected work</a>
-          </div>
-        </aside>
-      </div>
-      <div class="container featured-strip-wrap reveal">
-        <section class="featured-strip" aria-labelledby="featured-strip-title">
-          <div class="featured-strip-head">
-            <div>
-              <p class="kicker">Selected Work</p>
-              <h2 id="featured-strip-title">Three product concepts, one clear focus</h2>
-            </div>
-            <p class="section-caption">Jump straight to the three tools included on this page.</p>
-          </div>
-          <div class="featured-strip-grid">
-            <a class="featured-item" href="#resume-feedback">
-              <span class="featured-label">Resume</span>
-              <strong>AI Resume Feedback Tool</strong>
-              <span>Paste a resume and get fast feedback on clarity, stronger bullets, and next fixes.</span>
-            </a>
-            <a class="featured-item" href="#job-translator">
-              <span class="featured-label">Interpretation</span>
-              <strong>AI Job Description Translator</strong>
-              <span>Enter a job position and get a simpler summary of what the role usually emphasizes.</span>
-            </a>
-            <a class="featured-item" href="#cover-letter-feedback">
-              <span class="featured-label">Cover Letter</span>
-              <strong>AI Cover Letter Feedback</strong>
-              <span>Paste a cover letter and get a cleaner, more direct version with focused notes.</span>
-            </a>
-          </div>
-        </section>
       </div>
     </section>
 
@@ -889,8 +877,8 @@
       <div class="container">
         <div class="section-head">
           <div>
-            <p class="kicker">Selected Work</p>
-            <h2 class="section-title">Three product concepts, one clear focus</h2>
+            <p class="kicker">Proof</p>
+            <h2 class="section-title">Projects built around real student problems</h2>
           </div>
           <p class="section-caption">Only the three requested projects are included below, each with project details and an interactive input area.</p>
         </div>
@@ -997,10 +985,10 @@ Helped run events for the business club"></textarea>
                   </div>
                   <p class="section-caption">One input, one quick result.</p>
                 </div>
-                <p class="helper">Enter a job position and get a simpler breakdown.</p>
+                <p class="helper">Paste a job description and get a simpler breakdown.</p>
                 <div class="field">
-                  <label for="job-position">Job position</label>
-                  <input id="job-description" type="text" placeholder="Example: Data Analyst Intern" />
+                  <label for="job-description">Job description</label>
+                  <input id="job-description" type="text" placeholder="Example: Seeking an entry-level analyst with strong communication, reporting, and dashboard experience" />
                 </div>
                 <div class="btn-row">
                   <button class="btn btn-primary" type="button" id="job-run">Translate posting</button>
@@ -1074,7 +1062,9 @@ Helped run events for the business club"></textarea>
 
     <footer>
       <div class="container">
-        <div class="card footer-card">Interactive local prototype for the three portfolio projects only.</div>
+        <div class="card footer-card">
+          Focused on the three required tools: AI Resume Feedback Tool, AI Job Description Translator, and AI Cover Letter Feedback.
+        </div>
       </div>
     </footer>
   </main>
@@ -1085,13 +1075,15 @@ Helped run events for the business club"></textarea>
     const navMenu = document.querySelector(".nav-links");
     const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
     const revealItems = document.querySelectorAll(".reveal");
-    const observedSections = document.querySelectorAll("[data-nav-target]");
+    const observedSections = Array.from(document.querySelectorAll("[data-nav-target]"));
     const resumeBullets = document.getElementById("resume-bullets");
     const resumeOutput = document.getElementById("resume-output");
     const jobDescription = document.getElementById("job-description");
     const jobOutput = document.getElementById("job-output");
     const coverDraft = document.getElementById("cover-draft");
     const coverOutput = document.getElementById("cover-output");
+    let activeSectionId = observedSections[0]?.id || "";
+    let navTicking = false;
 
     function escapeHtml(value) {
       return value
@@ -1132,6 +1124,11 @@ Helped run events for the business club"></textarea>
     }
 
     function setActiveNav(targetId) {
+      if (!targetId || targetId === activeSectionId) {
+        return;
+      }
+
+      activeSectionId = targetId;
       navLinks.forEach((link) => {
         const isActive = link.getAttribute("href") === `#${targetId}`;
         if (isActive) {
@@ -1212,35 +1209,58 @@ Helped run events for the business club"></textarea>
 
     revealItems.forEach((item) => revealObserver.observe(item));
 
-    const navObserver = new IntersectionObserver(
-      (entries) => {
-        const visibleEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    function updateActiveSectionFromScroll() {
+      const focusLine = window.innerHeight * 0.28;
+      let nextActiveId = observedSections[0]?.id || "";
 
-        if (visibleEntry?.target?.id) {
-          setActiveNav(visibleEntry.target.id);
+      observedSections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= focusLine) {
+          nextActiveId = section.id;
         }
-      },
-      {
-        rootMargin: "-30% 0px -45% 0px",
-        threshold: [0.2, 0.4, 0.6]
+      });
+
+      setActiveNav(nextActiveId);
+      navTicking = false;
+    }
+
+    function requestActiveSectionUpdate() {
+      if (navTicking) {
+        return;
       }
+
+      navTicking = true;
+      window.requestAnimationFrame(updateActiveSectionFromScroll);
+    }
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        updateScrollProgress();
+        requestActiveSectionUpdate();
+      },
+      { passive: true }
     );
-
-    observedSections.forEach((section) => navObserver.observe(section));
-
-    window.addEventListener("scroll", updateScrollProgress, { passive: true });
-    window.addEventListener("load", updateScrollProgress);
+    window.addEventListener("load", () => {
+      updateScrollProgress();
+      updateActiveSectionFromScroll();
+    });
     window.addEventListener("resize", () => {
       if (window.innerWidth > 640) {
         closeMenu();
       }
+
+      updateActiveSectionFromScroll();
     });
 
     menuButton.addEventListener("click", toggleMenu);
     navLinks.forEach((link) => {
       link.addEventListener("click", () => {
+        const targetId = link.getAttribute("href")?.replace("#", "");
+        if (targetId) {
+          setActiveNav(targetId);
+        }
+
         if (window.innerWidth <= 640) {
           closeMenu();
         }
@@ -1248,6 +1268,7 @@ Helped run events for the business club"></textarea>
     });
 
     updateScrollProgress();
+    updateActiveSectionFromScroll();
 
     document.getElementById("resume-run").addEventListener("click", () => {
       const bullets = linesFromText(resumeBullets.value);
@@ -1355,6 +1376,7 @@ Helped run events for the business club"></textarea>
       coverDraft.value = "";
       resetOutput(coverOutput, "Run the demo to see clarity notes, a relevance score, and a revised version of the cover letter.");
     });
+
   </script>
 </body>
 </html>
