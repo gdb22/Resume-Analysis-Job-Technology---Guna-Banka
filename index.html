@@ -318,6 +318,14 @@
       font-weight: 600;
     }
 
+    .preview-badge {
+      margin-top: 14px;
+      background: rgba(39, 76, 144, 0.12);
+      border-color: rgba(39, 76, 144, 0.18);
+      color: var(--brand);
+      font-weight: 800;
+    }
+
     .btn-row {
       display: flex;
       flex-wrap: wrap;
@@ -340,6 +348,13 @@
 
     .btn:hover {
       transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      cursor: wait;
+      opacity: 0.72;
+      transform: none;
+      box-shadow: none;
     }
 
     .btn-primary {
@@ -453,6 +468,38 @@
       margin-top: 18px;
       padding-top: 16px;
       border-top: 1px solid var(--border);
+    }
+
+    .hero-spotlight-card {
+      margin-top: 18px;
+      border-color: rgba(39, 76, 144, 0.18);
+      background:
+        linear-gradient(135deg, rgba(39, 76, 144, 0.08), rgba(255, 255, 255, 0) 42%),
+        var(--surface);
+    }
+
+    .hero-spotlight-card .hero-name {
+      font-size: 1.28rem;
+    }
+
+    .hero-spotlight-card .hero-role {
+      max-width: 58ch;
+      line-height: 1.6;
+    }
+
+    .hero-card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .hero-spotlight-field {
+      margin-top: 16px;
+    }
+
+    .hero-spotlight-field textarea {
+      min-height: 132px;
     }
 
     .project-link {
@@ -570,6 +617,44 @@
       justify-content: space-between;
       gap: 10px;
       align-items: start;
+    }
+
+    .project.project-featured {
+      position: relative;
+      border-color: rgba(39, 76, 144, 0.22);
+      background:
+        linear-gradient(135deg, rgba(39, 76, 144, 0.08), rgba(255, 255, 255, 0) 34%),
+        var(--surface);
+      box-shadow: 0 30px 80px rgba(39, 76, 144, 0.1);
+    }
+
+    .project.project-featured::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow: inset 0 0 0 1px rgba(39, 76, 144, 0.06);
+    }
+
+    .project-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(39, 76, 144, 0.12);
+      color: var(--brand);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .project-badge::before {
+      content: "★";
+      font-size: 0.76rem;
     }
 
     .eyebrow {
@@ -695,8 +780,79 @@
       box-shadow: 0 0 0 4px var(--ring);
     }
 
+    .field-feedback {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 1.4em;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: color 0.18s ease;
+    }
+
+    .field-feedback::before {
+      content: "•";
+      flex: 0 0 auto;
+      font-size: 1rem;
+      line-height: 1;
+      color: currentColor;
+    }
+
+    .field-feedback.is-loading::before {
+      content: "";
+      width: 0.85rem;
+      height: 0.85rem;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 999px;
+      animation: feedback-spin 0.8s linear infinite;
+    }
+
+    .field-feedback.is-success::before {
+      content: "✓";
+    }
+
+    .field-feedback.is-error::before {
+      content: "!";
+    }
+
+    .field-feedback.is-info::before {
+      content: "↵";
+    }
+
+    .field-feedback.is-success {
+      color: #245c37;
+    }
+
+    .field-feedback.is-error {
+      color: #9c2f2f;
+    }
+
+    .field-feedback.is-info {
+      color: var(--brand);
+    }
+
+    .field-feedback.is-loading {
+      color: var(--brand-2);
+    }
+
+    @keyframes feedback-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
     .output-panel {
       background: rgba(255, 255, 255, 0.82);
+    }
+
+    .output-panel.is-updating {
+      animation: output-reveal 0.34s ease;
+    }
+
+    .output-panel.is-resetting {
+      animation: output-reset 0.26s ease;
     }
 
     .output-panel.empty {
@@ -731,6 +887,30 @@
       background: rgba(32, 73, 138, 0.1);
       color: var(--brand);
       font-weight: 800;
+    }
+
+    @keyframes output-reveal {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes output-reset {
+      from {
+        opacity: 0.55;
+        transform: scale(0.985);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     footer {
@@ -843,7 +1023,7 @@
       <a class="site-title" href="#top">Resume Analysis + Job Technology</a>
       <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">Menu</button>
       <nav class="nav-links" id="site-nav" aria-label="Main navigation">
-        <a href="#resume-feedback" aria-current="page">Resume</a>
+        <a href="#resume-feedback" aria-current="page">AI Resume Feedback</a>
         <a href="#job-translator">Job Description</a>
         <a href="#cover-letter-feedback">Cover Letter</a>
       </nav>
@@ -858,7 +1038,32 @@
           <p class="kicker hero-layer" style="--hero-layer-delay: 0ms;">AI Product Engineer · Student Career Tools</p>
           <p class="hero-intro hero-layer" style="--hero-layer-delay: 40ms;">Three focused tools for student job applications.</p>
           <h1 class="hero-layer" style="--hero-layer-delay: 80ms;">Resume, job description, and cover letter tools.</h1>
-          <p class="lead hero-layer" style="--hero-layer-delay: 160ms;">Choose a tool below and try the interactive demo.</p>
+          <p class="lead hero-layer" style="--hero-layer-delay: 160ms;">Start with AI Resume Feedback, then explore the job description and cover letter tools below.</p>
+          <aside class="hero-card hero-spotlight-card hero-layer" style="--hero-layer-delay: 190ms;" aria-label="AI Resume Feedback spotlight">
+            <div class="hero-identity">
+              <p class="mini-label">Featured tool</p>
+              <h2 class="hero-name">AI Resume Feedback Tool</h2>
+              <p class="hero-role">The AI Resume Feedback Tool is included here as a separate spotlight card so users can immediately find where to paste their experience and get rewrite ideas, a score, and a prioritized fix list.</p>
+            </div>
+            <ul>
+              <li>Included as the first featured tool on the page.</li>
+              <li>Paste resume bullets and get instant structured feedback.</li>
+              <li>See what is already working before reviewing fixes.</li>
+              <li>Jump directly to the interactive AI Resume Feedback demo below.</li>
+            </ul>
+            <div class="field hero-spotlight-field">
+              <label for="resume-spotlight-input">Quick resume input</label>
+              <textarea id="resume-spotlight-input" rows="5" placeholder="Example:
+Led outreach for the business club
+Built a dashboard for student engagement"></textarea>
+              <p class="field-feedback" id="resume-spotlight-feedback" role="status" aria-live="polite">Paste resume bullets here to review them from the top of the page.</p>
+            </div>
+            <div class="hero-card-actions">
+              <button class="btn btn-primary" type="button" id="resume-spotlight-run">Review from here</button>
+              <button class="btn btn-secondary" type="button" id="resume-spotlight-clear">Clear</button>
+              <a class="btn btn-secondary" href="#resume-feedback">Jump to full resume section</a>
+            </div>
+          </aside>
           <div class="btn-row hero-layer" style="--hero-layer-delay: 220ms;">
             <a class="btn btn-primary" href="#resume-feedback">Go to the tools</a>
             <a class="btn btn-secondary" href="#job-translator">Jump to job description tool</a>
@@ -884,7 +1089,8 @@
         </div>
 
         <div class="projects">
-          <article class="project reveal" id="resume-feedback" data-nav-target>
+          <article class="project project-featured reveal" id="resume-feedback" data-nav-target>
+            <div class="project-badge">Start here</div>
             <div class="project-header">
               <div class="project-title">
                 <span class="eyebrow">Resume</span>
@@ -924,22 +1130,23 @@
                     <p class="mini-label">Demo</p>
                     <h4 class="panel-title">Interactive Demo</h4>
                   </div>
-                  <p class="section-caption">One input, one quick result.</p>
+                    <p class="section-caption">AI Resume Feedback demo with one input and one quick result.</p>
                 </div>
-                <p class="helper">Paste a resume and get quick feedback.</p>
+                  <p class="helper">Paste a resume and get AI resume feedback with scores, rewrite ideas, and next steps.</p>
                 <div class="field">
                   <label for="resume-text">Resume</label>
                   <textarea id="resume-bullets" rows="8" placeholder="Example:
 Worked on a student analytics dashboard
 Helped run events for the business club"></textarea>
+                  <p class="field-feedback" id="resume-field-feedback" role="status" aria-live="polite">Paste a few resume bullets, then press Command/Ctrl + Enter to get feedback.</p>
                 </div>
                 <div class="btn-row">
-                  <button class="btn btn-primary" type="button" id="resume-run">Generate feedback</button>
-                  <button class="btn btn-secondary" type="button" id="resume-reset">Reset</button>
+                  <button class="btn btn-primary" type="button" id="resume-run">Review resume</button>
+                  <button class="btn btn-secondary" type="button" id="resume-reset">Clear</button>
                 </div>
               </section>
 
-              <section class="output-panel empty" id="resume-output">Run the demo to see a score, rewrite suggestions, and a prioritized fix list.</section>
+              <section class="output-panel empty" id="resume-output">Run the AI Resume Feedback demo to see a score, rewrite suggestions, and a prioritized fix list.</section>
             </div>
           </article>
 
@@ -989,10 +1196,11 @@ Helped run events for the business club"></textarea>
                 <div class="field">
                   <label for="job-description">Job description</label>
                   <input id="job-description" type="text" placeholder="Example: Seeking an entry-level analyst with strong communication, reporting, and dashboard experience" />
+                  <p class="field-feedback" id="job-feedback" role="status" aria-live="polite">Paste a job description, then press Enter to see a clearer breakdown.</p>
                 </div>
                 <div class="btn-row">
-                  <button class="btn btn-primary" type="button" id="job-run">Translate posting</button>
-                  <button class="btn btn-secondary" type="button" id="job-reset">Reset</button>
+                  <button class="btn btn-primary" type="button" id="job-run">Break it down</button>
+                  <button class="btn btn-secondary" type="button" id="job-reset">Clear</button>
                 </div>
               </section>
 
@@ -1046,10 +1254,11 @@ Helped run events for the business club"></textarea>
                 <div class="field">
                   <label for="cover-draft">Cover letter</label>
                   <textarea id="cover-draft" rows="6" placeholder="Paste a rough paragraph here"></textarea>
+                  <p class="field-feedback" id="cover-feedback" role="status" aria-live="polite">Paste a draft, then press Command/Ctrl + Enter to get revision feedback.</p>
                 </div>
                 <div class="btn-row">
-                  <button class="btn btn-primary" type="button" id="cover-run">Generate feedback</button>
-                  <button class="btn btn-secondary" type="button" id="cover-reset">Reset</button>
+                  <button class="btn btn-primary" type="button" id="cover-run">Review draft</button>
+                  <button class="btn btn-secondary" type="button" id="cover-reset">Clear</button>
                 </div>
               </section>
 
@@ -1077,11 +1286,21 @@ Helped run events for the business club"></textarea>
     const revealItems = document.querySelectorAll(".reveal");
     const observedSections = Array.from(document.querySelectorAll("[data-nav-target]"));
     const resumeBullets = document.getElementById("resume-bullets");
+    const resumeSpotlightInput = document.getElementById("resume-spotlight-input");
+    const resumeSpotlightFeedback = document.getElementById("resume-spotlight-feedback");
+    const resumeFeedback = document.getElementById("resume-field-feedback");
     const resumeOutput = document.getElementById("resume-output");
+    const resumeRunButton = document.getElementById("resume-run");
+    const resumeSpotlightRunButton = document.getElementById("resume-spotlight-run");
+    const resumeSpotlightClearButton = document.getElementById("resume-spotlight-clear");
     const jobDescription = document.getElementById("job-description");
+    const jobFeedback = document.getElementById("job-feedback");
     const jobOutput = document.getElementById("job-output");
+    const jobRunButton = document.getElementById("job-run");
     const coverDraft = document.getElementById("cover-draft");
+    const coverFeedback = document.getElementById("cover-feedback");
     const coverOutput = document.getElementById("cover-output");
+    const coverRunButton = document.getElementById("cover-run");
     let activeSectionId = observedSections[0]?.id || "";
     let navTicking = false;
 
@@ -1108,12 +1327,60 @@ Helped run events for the business club"></textarea>
 
     function renderOutput(element, html) {
       element.classList.remove("empty");
+      element.classList.remove("is-updating");
       element.innerHTML = html;
+      void element.offsetWidth;
+      element.classList.add("is-updating");
     }
 
     function resetOutput(element, message) {
       element.className = "output-panel empty";
       element.textContent = message;
+      void element.offsetWidth;
+      element.classList.add("is-resetting");
+    }
+
+    function setFieldFeedback(element, message, state = "default") {
+      element.className = "field-feedback";
+      if (state !== "default") {
+        element.classList.add(`is-${state}`);
+      }
+      element.textContent = message;
+      element.setAttribute("data-state", state);
+      element.setAttribute("aria-busy", String(state === "loading"));
+    }
+
+    function runWithLoadingState(button, feedback, loadingMessage, onComplete) {
+      if (button.disabled) {
+        return;
+      }
+
+      button.disabled = true;
+      setFieldFeedback(feedback, loadingMessage, "loading");
+
+      window.setTimeout(() => {
+        onComplete();
+        button.disabled = false;
+      }, 220);
+    }
+
+    function bindFieldDescription(input, feedback) {
+      const describedBy = input.getAttribute("aria-describedby");
+      const feedbackId = feedback.id;
+      input.setAttribute(
+        "aria-describedby",
+        describedBy ? `${describedBy} ${feedbackId}` : feedbackId
+      );
+    }
+
+    function syncResumeInputs(source, value) {
+      const normalizedValue = value;
+      if (source !== "main") {
+        resumeBullets.value = normalizedValue;
+      }
+      if (source !== "spotlight") {
+        resumeSpotlightInput.value = normalizedValue;
+      }
     }
 
     function updateScrollProgress() {
@@ -1250,16 +1517,16 @@ Helped run events for the business club"></textarea>
       const fixes = [];
 
       if (analyses.some((item) => !item.hasActionVerb)) {
-        fixes.push("Start the weakest bullets with stronger action verbs so ownership is immediately clear.");
+        fixes.push("Lead each bullet with a stronger action verb so your ownership is clear within the first few words.");
       }
       if (analyses.some((item) => !item.hasMetric)) {
-        fixes.push("Add one metric, scope detail, or concrete result anywhere the bullet still sounds vague.");
+        fixes.push("Add quantified outcomes, scope, or business impact where the experience still reads as task-based rather than results-driven.");
       }
       if (analyses.some((item) => item.wordCount < 10)) {
-        fixes.push("Expand the shortest bullets so they show the task, the setting, and the outcome instead of only the activity.");
+        fixes.push("Expand the briefest bullets so they show the challenge, the contribution, and the outcome instead of only the activity.");
       }
       if (analyses.some((item) => !item.hasContext)) {
-        fixes.push("Name the team, project, audience, or tool when possible so each bullet feels more credible.");
+        fixes.push("Reference the project, audience, team, or tools used so each point feels more specific and professionally grounded.");
       }
 
       return fixes.slice(0, 3);
@@ -1269,16 +1536,89 @@ Helped run events for the business club"></textarea>
       const strengths = [];
 
       if (analyses.some((item) => item.hasActionVerb)) {
-        strengths.push("You already have bullets that use action-oriented language instead of passive phrasing.");
+        strengths.push("Several bullets already open with action-oriented language, which helps the document read with stronger ownership.");
       }
       if (analyses.some((item) => item.hasMetric)) {
-        strengths.push("There is already some measurable evidence, which makes the resume feel more credible.");
+        strengths.push("There is measurable evidence in the draft, which immediately improves credibility and makes accomplishments easier to trust.");
       }
       if (analyses.filter((item) => item.wordCount >= 12).length >= 2) {
-        strengths.push("Several bullets have enough detail to be shaped into stronger impact statements.");
+        strengths.push("A number of bullets already contain enough detail to be shaped into polished impact statements with minimal revision.");
       }
 
-      return strengths.length ? strengths : ["You have enough content here to build stronger bullets with clearer evidence."];
+      return strengths.length ? strengths : ["The draft contains usable experience; the main opportunity is to present it with clearer outcomes and stronger professional framing."];
+    }
+
+    function buildResumeProfessionalSummary(analyses, score) {
+      const actionCount = analyses.filter((item) => item.hasActionVerb).length;
+      const metricCount = analyses.filter((item) => item.hasMetric).length;
+      const contextCount = analyses.filter((item) => item.hasContext).length;
+
+      if (score >= 8.5) {
+        return "This resume already reads as polished and credible. The experience shows ownership, and a final consistency pass would make it feel even more interview-ready.";
+      }
+
+      if (score >= 7) {
+        return "This resume has a strong foundation. The clearest opportunity is to make impact, specificity, and consistency more visible across every bullet.";
+      }
+
+      if (metricCount === 0 && actionCount === 0) {
+        return "The experience appears relevant, but the draft currently reads more like a list of responsibilities than a set of professional accomplishments. Stronger action-result framing would improve it quickly.";
+      }
+
+      if (contextCount < analyses.length / 2) {
+        return "The resume shows useful experience, but it needs more context around projects, tools, and audience to feel more professionally grounded.";
+      }
+
+      return "The resume shows meaningful experience, but several bullets would benefit from clearer outcomes and more direct evidence of impact.";
+    }
+
+    function buildResumeRecruiterLens(analyses) {
+      const missingMetrics = analyses.filter((item) => !item.hasMetric).length;
+      const missingContext = analyses.filter((item) => !item.hasContext).length;
+
+      if (missingMetrics === 0 && missingContext === 0) {
+        return "From a recruiter perspective, the draft already communicates ownership and credibility well. The remaining improvement is mostly about tightening language for consistency.";
+      }
+
+      if (missingMetrics >= 2) {
+        return "From a recruiter perspective, the draft suggests good involvement, but more measurable outcomes are needed to distinguish contribution from participation.";
+      }
+
+      if (missingContext >= 2) {
+        return "From a recruiter perspective, the strongest improvement would be to name the setting, tools, or audience more often so each bullet feels easier to evaluate.";
+      }
+
+      return "From a recruiter perspective, the content is promising, but clearer evidence of scale, impact, and role ownership would make the story more convincing.";
+    }
+
+    function buildResumeHiringManagerLens(analyses) {
+      const strongBullets = analyses.filter((item) => item.hasActionVerb && item.hasContext).length;
+      const weakBullets = analyses.filter((item) => !item.hasActionVerb || !item.hasContext).length;
+
+      if (strongBullets >= 2 && weakBullets <= 1) {
+        return "From a hiring manager perspective, the experience already suggests useful ownership and applied contribution. The next improvement is making the strongest examples even more outcome-focused.";
+      }
+
+      if (analyses.some((item) => !item.hasContext)) {
+        return "From a hiring manager perspective, I want to understand the environment behind each bullet more quickly—what team, project, toolset, or business problem was involved.";
+      }
+
+      return "From a hiring manager perspective, the resume shows relevant potential, but the bullets should make decision-making, execution, and end results more visible.";
+    }
+
+    function buildResumeCareerCoachLens(analyses) {
+      const shortBullets = analyses.filter((item) => item.wordCount < 10).length;
+      const missingMetrics = analyses.filter((item) => !item.hasMetric).length;
+
+      if (shortBullets >= 2) {
+        return "From a career coach perspective, the fastest improvement is expanding the shortest bullets into fuller accomplishment statements that connect action to outcome.";
+      }
+
+      if (missingMetrics >= 2) {
+        return "From a career coach perspective, the strongest next step is adding measurable evidence so the resume sounds more competitive in a student applicant pool.";
+      }
+
+      return "From a career coach perspective, the content is solid enough to refine rather than rewrite; focus on consistency, confidence, and stronger proof of impact.";
     }
 
     function extractResponsibilityHighlights(text) {
@@ -1321,6 +1661,236 @@ Helped run events for the business club"></textarea>
       ];
     }
 
+    function updateResumeFeedbackMessage() {
+      const bullets = linesFromText(resumeBullets.value);
+      if (bullets.length === 0) {
+        setFieldFeedback(resumeFeedback, "Paste a few resume bullets, then press Command/Ctrl + Enter to get feedback.");
+        return;
+      }
+
+      const bulletLabel = bullets.length === 1 ? "bullet" : "bullets";
+      setFieldFeedback(resumeFeedback, `${bullets.length} ${bulletLabel} ready. Press Command/Ctrl + Enter or click Generate feedback when you're ready.`, "info");
+    }
+
+    function updateResumeSpotlightFeedbackMessage() {
+      const bullets = linesFromText(resumeSpotlightInput.value);
+      if (bullets.length === 0) {
+        setFieldFeedback(resumeSpotlightFeedback, "Paste resume bullets here to review them from the top of the page.");
+        return;
+      }
+
+      const bulletLabel = bullets.length === 1 ? "bullet" : "bullets";
+      setFieldFeedback(resumeSpotlightFeedback, `${bullets.length} ${bulletLabel} ready. Click Review from here to generate AI Resume Feedback.`, "info");
+    }
+
+    function updateJobFeedbackMessage() {
+      const description = jobDescription.value.trim();
+      if (!description) {
+        setFieldFeedback(jobFeedback, "Paste a job description, then press Enter to see a clearer breakdown.");
+        return;
+      }
+
+      const wordCount = getWordCount(description);
+      setFieldFeedback(jobFeedback, `${wordCount} words ready. Press Enter or click Translate posting to break it down.`, "info");
+    }
+
+    function updateCoverFeedbackMessage() {
+      const draft = coverDraft.value.trim();
+      if (!draft) {
+        setFieldFeedback(coverFeedback, "Paste a draft, then press Command/Ctrl + Enter to get revision feedback.");
+        return;
+      }
+
+      const wordCount = getWordCount(draft);
+      setFieldFeedback(coverFeedback, `${wordCount} words ready. Press Command/Ctrl + Enter or click Generate feedback to review it.`, "info");
+    }
+
+    function renderResumeDemo() {
+      const bullets = linesFromText(resumeBullets.value);
+      if (bullets.length === 0) {
+        setFieldFeedback(resumeFeedback, "Add at least one resume bullet before generating feedback.", "error");
+        resetOutput(resumeOutput, "Paste your resume to generate feedback.");
+        return;
+      }
+      const analyses = bullets.map((bullet) => analyzeResumeBullet(bullet));
+      const scoreBase = bullets.length ? bullets.map((bullet) => scoreText(bullet, 10)).reduce((sum, value) => sum + value, 0) / bullets.length : 5;
+      const overallScore = Math.max(5, Math.min(10, Math.round(scoreBase * 10) / 10));
+      const rewrites = bullets.slice(0, 3).map((bullet) => rewriteBullet(bullet, "the target role"));
+      const strengths = buildResumeStrengths(analyses);
+      const fixList = buildResumeFixList(analyses);
+      const professionalSummary = buildResumeProfessionalSummary(analyses, overallScore);
+      const recruiterLens = buildResumeRecruiterLens(analyses);
+      const hiringManagerLens = buildResumeHiringManagerLens(analyses);
+      const careerCoachLens = buildResumeCareerCoachLens(analyses);
+      renderOutput(resumeOutput, `
+        <div class="output-block">
+          <div class="output-label">Resume score</div>
+          <span class="score-chip">${overallScore}/10 clarity + impact</span>
+        </div>
+        <div class="output-block">
+          <div class="output-label">Professional summary</div>
+          <p>${escapeHtml(professionalSummary)}</p>
+        </div>
+        <div class="output-block">
+          <div class="output-label">Recruiter lens</div>
+          <p>${escapeHtml(recruiterLens)}</p>
+        </div>
+        <div class="output-block">
+          <div class="output-label">Hiring manager lens</div>
+          <p>${escapeHtml(hiringManagerLens)}</p>
+        </div>
+        <div class="output-block">
+          <div class="output-label">Career coach lens</div>
+          <p>${escapeHtml(careerCoachLens)}</p>
+        </div>
+        <div class="output-block">
+          <div class="output-label">What already reads well</div>
+          <ul>${strengths.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="output-block">
+          <div class="output-label">Professional rewrite suggestions</div>
+          <ul>${rewrites.length ? rewrites.map((item) => `<li>${escapeHtml(item)}</li>`).join("") : "<li>Add at least one resume bullet to generate rewrite suggestions.</li>"}</ul>
+        </div>
+        <div class="output-block">
+          <div class="output-label">Priority recommendations</div>
+          <ul>${fixList.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+      `);
+      setFieldFeedback(resumeFeedback, `Feedback is ready for ${bullets.length} ${bullets.length === 1 ? "bullet" : "bullets"}. Review the results on the right.`, "success");
+    }
+
+    function renderJobDemo() {
+      const description = jobDescription.value.trim();
+      if (!description) {
+        setFieldFeedback(jobFeedback, "Paste a job description before translating it.", "error");
+        resetOutput(jobOutput, "Enter a job position to generate feedback.");
+        return;
+      }
+      const skills = extractKeywords(description);
+      const roleName = extractRoleHint(description);
+      const responsibilities = extractResponsibilityHighlights(description);
+      const summary = skills.length
+        ? `This role is really asking for someone who can show ${skills.slice(0, 3).join(", ").toLowerCase()} with believable evidence, not just broad interest.`
+        : `This posting is looking for someone who can show relevant experience, communicate clearly, and prove they can handle the core work.`;
+      const gapSummary = `Focus on matching your projects, coursework, or work examples to the strongest signals in ${roleName}.`;
+      const proofSignals = buildProofSignals(skills);
+      const prepPlan = buildPrepPlan(skills, roleName);
+      renderOutput(jobOutput, `
+        <div class="output-block">
+          <div class="output-label">Role highlights</div>
+          <ul>${(skills.length ? skills : ["Role fit", "Evidence", "Clear communication"]).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="output-block">
+          <div class="output-label">What the employer is really asking for</div>
+          <ul>${(responsibilities.length ? responsibilities : [summary]).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="output-block">
+          <div class="output-label">Plain-language summary</div>
+          <p>${escapeHtml(summary)}</p>
+        </div>
+        <div class="output-block">
+          <div class="output-label">Gap summary</div>
+          <p>${escapeHtml(gapSummary)}</p>
+        </div>
+        <div class="output-block">
+          <div class="output-label">Proof signals to show</div>
+          <ul>${proofSignals.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="output-block">
+          <div class="output-label">2-week action plan</div>
+          <ul>${prepPlan.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+      `);
+      setFieldFeedback(jobFeedback, `Your breakdown is ready for ${getWordCount(description)} words. Review the summary on the right.`, "success");
+    }
+
+    function renderCoverDemo() {
+      const draft = coverDraft.value.trim();
+      if (!draft) {
+        setFieldFeedback(coverFeedback, "Paste your cover letter draft before generating feedback.", "error");
+        resetOutput(coverOutput, "Paste your cover letter to generate feedback.");
+        return;
+      }
+      const normalizedDraft = draft.replace(/\s+/g, " ").trim();
+      const relevanceScore = Math.max(5.5, Math.min(9.6, scoreText(normalizedDraft, 10) + 0.2));
+      const weakPhrases = findWeakPhrases(normalizedDraft, WEAK_COVER_PHRASES);
+      const evidenceSignals = extractKeywords(normalizedDraft);
+      const notes = [];
+
+      if (weakPhrases.length) {
+        notes.push(`Replace generic phrases like ${weakPhrases.slice(0, 2).join(" and ")} with one concrete example from your experience.`);
+      }
+      if (!METRIC_PATTERN.test(normalizedDraft)) {
+        notes.push("Add one result, outcome, or concrete responsibility so the letter sounds grounded instead of broad.");
+      }
+      if (!ACTION_VERB_PATTERN.test(normalizedDraft)) {
+        notes.push("Use stronger action language so the reader can see what you actually did, not just what you value.");
+      }
+      if (evidenceSignals.length === 0) {
+        notes.push("Name at least one skill, project, tool, or task that directly supports your fit for the role.");
+      }
+
+      const strongestFocus = evidenceSignals.length ? evidenceSignals.slice(0, 2).join(" and ").toLowerCase() : "communication and problem-solving";
+      const revision = `I am interested in this role because it aligns with the ${strongestFocus} work I have already practiced through projects, coursework, and student experience. I would strengthen this application by showing one specific example of what I contributed, how I approached the work, and what result came from it.`;
+      renderOutput(coverOutput, `
+        <div class="output-block">
+          <div class="output-label">Relevance score</div>
+          <span class="score-chip">${relevanceScore.toFixed(1)}/10 grounded alignment</span>
+        </div>
+        <div class="output-block">
+          <div class="output-label">What is missing</div>
+          <ul>${(notes.length ? notes : ["The draft already has a useful base, but it gets stronger if you add one concrete example and a clearer result."]).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="output-block">
+          <div class="output-label">Revision notes</div>
+          <ul>
+            <li>Lead with role fit, not just enthusiasm.</li>
+            <li>Use one specific example to prove the claim.</li>
+            <li>End by showing the value you can bring to the team.</li>
+          </ul>
+        </div>
+        <div class="output-block">
+          <div class="output-label">Rewritten paragraph</div>
+          <p>${escapeHtml(revision)}</p>
+        </div>
+      `);
+      setFieldFeedback(coverFeedback, `Revision feedback is ready for your ${getWordCount(draft)}-word draft. Review the notes on the right.`, "success");
+    }
+
+    function runResumeDemo() {
+      const bullets = linesFromText(resumeBullets.value);
+      if (bullets.length === 0) {
+        renderResumeDemo();
+        return;
+      }
+
+      runWithLoadingState(resumeRunButton, resumeFeedback, "Reviewing your resume bullets…", renderResumeDemo);
+    }
+
+    function runJobDemo() {
+      const description = jobDescription.value.trim();
+      if (!description) {
+        renderJobDemo();
+        return;
+      }
+
+      runWithLoadingState(jobRunButton, jobFeedback, "Breaking down the job description…", renderJobDemo);
+    }
+
+    function runCoverDemo() {
+      const draft = coverDraft.value.trim();
+      if (!draft) {
+        renderCoverDemo();
+        return;
+      }
+
+      runWithLoadingState(coverRunButton, coverFeedback, "Reviewing your cover letter draft…", renderCoverDemo);
+    }
+
+    bindFieldDescription(resumeBullets, resumeFeedback);
+    bindFieldDescription(jobDescription, jobFeedback);
+    bindFieldDescription(coverDraft, coverFeedback);
+
     const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -1332,6 +1902,24 @@ Helped run events for the business club"></textarea>
       { threshold: 0.16 }
     );
 
+          function runResumeSpotlightDemo() {
+            syncResumeInputs("spotlight", resumeSpotlightInput.value);
+            updateResumeFeedbackMessage();
+            const bullets = linesFromText(resumeBullets.value);
+            if (bullets.length === 0) {
+              setFieldFeedback(resumeSpotlightFeedback, "Add at least one resume bullet before reviewing it.", "error");
+              renderResumeDemo();
+              return;
+            }
+
+            runWithLoadingState(resumeSpotlightRunButton, resumeSpotlightFeedback, "Reviewing your resume bullets…", () => {
+              renderResumeDemo();
+              setFieldFeedback(resumeSpotlightFeedback, `AI Resume Feedback is ready for ${bullets.length} ${bullets.length === 1 ? "bullet" : "bullets"}. Scroll down to review the output.`, "success");
+              resumeOutput.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+          }
+
+          bindFieldDescription(resumeSpotlightInput, resumeSpotlightFeedback);
     revealItems.forEach((item) => revealObserver.observe(item));
 
     function updateActiveSectionFromScroll() {
@@ -1395,146 +1983,81 @@ Helped run events for the business club"></textarea>
     updateScrollProgress();
     updateActiveSectionFromScroll();
 
-    document.getElementById("resume-run").addEventListener("click", () => {
-      const bullets = linesFromText(resumeBullets.value);
-      if (bullets.length === 0) {
-        resetOutput(resumeOutput, "Paste your resume to generate feedback.");
-        return;
+    resumeBullets.addEventListener("input", () => {
+      syncResumeInputs("main", resumeBullets.value);
+      updateResumeFeedbackMessage();
+      updateResumeSpotlightFeedbackMessage();
+    });
+    resumeBullets.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+        event.preventDefault();
+        runResumeDemo();
       }
-      const analyses = bullets.map((bullet) => analyzeResumeBullet(bullet));
-      const scoreBase = bullets.length ? bullets.map((bullet) => scoreText(bullet, 10)).reduce((sum, value) => sum + value, 0) / bullets.length : 5;
-      const overallScore = Math.max(5, Math.min(10, Math.round(scoreBase * 10) / 10));
-      const rewrites = bullets.slice(0, 3).map((bullet) => rewriteBullet(bullet, "the target role"));
-      const strengths = buildResumeStrengths(analyses);
-      const fixList = buildResumeFixList(analyses);
-      renderOutput(resumeOutput, `
-        <div class="output-block">
-          <div class="output-label">Resume score</div>
-          <span class="score-chip">${overallScore}/10 clarity + impact</span>
-        </div>
-        <div class="output-block">
-          <div class="output-label">What is already working</div>
-          <ul>${strengths.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-        </div>
-        <div class="output-block">
-          <div class="output-label">Suggested rewrites</div>
-          <ul>${rewrites.length ? rewrites.map((item) => `<li>${escapeHtml(item)}</li>`).join("") : "<li>Add at least one resume bullet to generate rewrite suggestions.</li>"}</ul>
-        </div>
-        <div class="output-block">
-          <div class="output-label">Prioritized fix list</div>
-          <ul>${fixList.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-        </div>
-      `);
+    });
+
+    resumeSpotlightInput.addEventListener("input", () => {
+      syncResumeInputs("spotlight", resumeSpotlightInput.value);
+      updateResumeSpotlightFeedbackMessage();
+      updateResumeFeedbackMessage();
+    });
+    resumeSpotlightInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+        event.preventDefault();
+        runResumeSpotlightDemo();
+      }
+    });
+
+    resumeRunButton.addEventListener("click", runResumeDemo);
+    resumeSpotlightRunButton.addEventListener("click", runResumeSpotlightDemo);
+    resumeSpotlightClearButton.addEventListener("click", () => {
+      syncResumeInputs("spotlight", "");
+      updateResumeSpotlightFeedbackMessage();
+      updateResumeFeedbackMessage();
     });
 
     document.getElementById("resume-reset").addEventListener("click", () => {
-      resumeBullets.value = "";
+      syncResumeInputs("main", "");
+      updateResumeFeedbackMessage();
+      updateResumeSpotlightFeedbackMessage();
       resetOutput(resumeOutput, "Run the demo to see a score, rewrite suggestions, and a prioritized fix list.");
     });
 
-    document.getElementById("job-run").addEventListener("click", () => {
-      const description = jobDescription.value.trim();
-      if (!description) {
-        resetOutput(jobOutput, "Enter a job position to generate feedback.");
-        return;
+    jobDescription.addEventListener("input", updateJobFeedbackMessage);
+    jobDescription.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        runJobDemo();
       }
-      const skills = extractKeywords(description);
-      const roleName = extractRoleHint(description);
-      const responsibilities = extractResponsibilityHighlights(description);
-      const summary = skills.length
-        ? `This role is really asking for someone who can show ${skills.slice(0, 3).join(", ").toLowerCase()} with believable evidence, not just broad interest.`
-        : `This posting is looking for someone who can show relevant experience, communicate clearly, and prove they can handle the core work.`;
-      const gapSummary = `Focus on matching your projects, coursework, or work examples to the strongest signals in ${roleName}.`;
-      const proofSignals = buildProofSignals(skills);
-      const prepPlan = buildPrepPlan(skills, roleName);
-      renderOutput(jobOutput, `
-        <div class="output-block">
-          <div class="output-label">Role highlights</div>
-          <ul>${(skills.length ? skills : ["Role fit", "Evidence", "Clear communication"]).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-        </div>
-        <div class="output-block">
-          <div class="output-label">What the employer is really asking for</div>
-          <ul>${(responsibilities.length ? responsibilities : [summary]).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-        </div>
-        <div class="output-block">
-          <div class="output-label">Plain-language summary</div>
-          <p>${escapeHtml(summary)}</p>
-        </div>
-        <div class="output-block">
-          <div class="output-label">Gap summary</div>
-          <p>${escapeHtml(gapSummary)}</p>
-        </div>
-        <div class="output-block">
-          <div class="output-label">Proof signals to show</div>
-          <ul>${proofSignals.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-        </div>
-        <div class="output-block">
-          <div class="output-label">2-week action plan</div>
-          <ul>${prepPlan.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-        </div>
-      `);
     });
+
+    jobRunButton.addEventListener("click", runJobDemo);
 
     document.getElementById("job-reset").addEventListener("click", () => {
       jobDescription.value = "";
+      updateJobFeedbackMessage();
       resetOutput(jobOutput, "Run the demo to see role highlights, a plain-language summary, and a short prep plan.");
     });
 
-    document.getElementById("cover-run").addEventListener("click", () => {
-      const draft = coverDraft.value.trim();
-      if (!draft) {
-        resetOutput(coverOutput, "Paste your cover letter to generate feedback.");
-        return;
+    coverDraft.addEventListener("input", updateCoverFeedbackMessage);
+    coverDraft.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+        event.preventDefault();
+        runCoverDemo();
       }
-      const normalizedDraft = draft.replace(/\s+/g, " ").trim();
-      const relevanceScore = Math.max(5.5, Math.min(9.6, scoreText(normalizedDraft, 10) + 0.2));
-      const weakPhrases = findWeakPhrases(normalizedDraft, WEAK_COVER_PHRASES);
-      const evidenceSignals = extractKeywords(normalizedDraft);
-      const notes = [];
-
-      if (weakPhrases.length) {
-        notes.push(`Replace generic phrases like ${weakPhrases.slice(0, 2).join(" and ")} with one concrete example from your experience.`);
-      }
-      if (!METRIC_PATTERN.test(normalizedDraft)) {
-        notes.push("Add one result, outcome, or concrete responsibility so the letter sounds grounded instead of broad.");
-      }
-      if (!ACTION_VERB_PATTERN.test(normalizedDraft)) {
-        notes.push("Use stronger action language so the reader can see what you actually did, not just what you value.");
-      }
-      if (evidenceSignals.length === 0) {
-        notes.push("Name at least one skill, project, tool, or task that directly supports your fit for the role.");
-      }
-
-      const strongestFocus = evidenceSignals.length ? evidenceSignals.slice(0, 2).join(" and ").toLowerCase() : "communication and problem-solving";
-      const revision = `I am interested in this role because it aligns with the ${strongestFocus} work I have already practiced through projects, coursework, and student experience. I would strengthen this application by showing one specific example of what I contributed, how I approached the work, and what result came from it.`;
-      renderOutput(coverOutput, `
-        <div class="output-block">
-          <div class="output-label">Relevance score</div>
-          <span class="score-chip">${relevanceScore.toFixed(1)}/10 grounded alignment</span>
-        </div>
-        <div class="output-block">
-          <div class="output-label">What is missing</div>
-          <ul>${(notes.length ? notes : ["The draft already has a useful base, but it gets stronger if you add one concrete example and a clearer result."]).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-        </div>
-        <div class="output-block">
-          <div class="output-label">Revision notes</div>
-          <ul>
-            <li>Lead with role fit, not just enthusiasm.</li>
-            <li>Use one specific example to prove the claim.</li>
-            <li>End by showing the value you can bring to the team.</li>
-          </ul>
-        </div>
-        <div class="output-block">
-          <div class="output-label">Rewritten paragraph</div>
-          <p>${escapeHtml(revision)}</p>
-        </div>
-      `);
     });
+
+    coverRunButton.addEventListener("click", runCoverDemo);
 
     document.getElementById("cover-reset").addEventListener("click", () => {
       coverDraft.value = "";
+      updateCoverFeedbackMessage();
       resetOutput(coverOutput, "Run the demo to see clarity notes, a relevance score, and a revised version of the cover letter.");
     });
+
+    updateResumeFeedbackMessage();
+    updateResumeSpotlightFeedbackMessage();
+    updateJobFeedbackMessage();
+    updateCoverFeedbackMessage();
 
   </script>
 </body>

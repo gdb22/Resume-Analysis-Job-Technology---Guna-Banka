@@ -19,7 +19,7 @@ class SiteStructureTests(unittest.TestCase):
         self.assertIn("<title>Student Career AI Tools</title>", self.html)
 
     def test_only_three_project_sections_exist(self):
-        project_ids = re.findall(r'<article class="project(?: reveal)?" id="([^"]+)"', self.html)
+        project_ids = re.findall(r'<article class="project(?: [^"]+)?" id="([^"]+)"', self.html)
         self.assertEqual(
             project_ids,
             ["resume-feedback", "job-translator", "cover-letter-feedback"],
@@ -41,6 +41,25 @@ class SiteStructureTests(unittest.TestCase):
         self.assertIn('id="cover-draft"', self.html)
         self.assertNotIn('id="cover-job"', self.html)
         self.assertNotIn('id="cover-resume"', self.html)
+
+    def test_demo_inputs_have_feedback_status_messages(self):
+        feedback_ids = ["resume-feedback", "job-feedback", "cover-feedback"]
+        for feedback_id in feedback_ids:
+            with self.subTest(feedback_id=feedback_id):
+                self.assertIn(f'id="{feedback_id}"', self.html)
+                self.assertIn('role="status"', self.html)
+                self.assertIn('aria-live="polite"', self.html)
+
+    def test_keyboard_submission_guidance_is_present(self):
+        guidance = [
+            "press command/ctrl + enter to get feedback",
+            "press enter to see a clearer breakdown",
+            "press command/ctrl + enter to get revision feedback",
+        ]
+        lowered_html = self.html.lower()
+        for item in guidance:
+            with self.subTest(item=item):
+                self.assertIn(item, lowered_html)
 
     def test_navigation_links_match_three_projects(self):
         self.assertIn('href="#resume-feedback"', self.html)
