@@ -113,5 +113,8 @@ Users can paste a cover letter and receive:
 ## LinkedIn (Resume included)
 - https://www.linkedin.com/in/guna-banka-785179269/
 
+## GitHub  Link
+https://gdb22.github.io/Resume-Analysis-Job-Technology---Guna-Banka/
+
 ## Vercel Link
 https://resume-analysis-job-technology-guna.vercel.app/
