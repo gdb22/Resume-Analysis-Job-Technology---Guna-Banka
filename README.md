@@ -1,5 +1,14 @@
 # Resume Analysis + Job Technology
 
+## LinkedIn Link (Resume included)
+https://www.linkedin.com/in/guna-banka-785179269/
+
+## GitHub  Link
+https://gdb22.github.io/Resume-Analysis-Job-Technology---Guna-Banka/
+
+## Vercel Link
+https://resume-analysis-job-technology-guna.vercel.app/
+
 This project is a single-page website that presents three AI-focused career tools:
 
 - AI Resume Feedback Tool
@@ -109,12 +118,3 @@ Users can paste a cover letter and receive:
 - The project intentionally includes only the three required tools.
 - The interactive behavior is frontend-only and does not require a backend.
 - The automated tests use only Python standard library modules.
-
-## LinkedIn (Resume included)
-- https://www.linkedin.com/in/guna-banka-785179269/
-
-## GitHub  Link
-https://gdb22.github.io/Resume-Analysis-Job-Technology---Guna-Banka/
-
-## Vercel Link
-https://resume-analysis-job-technology-guna.vercel.app/
