@@ -6,7 +6,7 @@ https://www.linkedin.com/in/guna-banka-785179269/
 ## GitHub  Link
 https://gdb22.github.io/Resume-Analysis-Job-Technology---Guna-Banka/
 
-## Vercel Link
+## Vercel Link (Recommended)
 https://resume-analysis-job-technology-guna.vercel.app/
 
 This project is a single-page website that presents three AI-focused career tools:
